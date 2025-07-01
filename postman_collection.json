@@ -1,0 +1,619 @@
+{
+  "info": {
+    "name": "LLM Manager API",
+    "description": "大语言模型管理服务API - 完整的模型管理、下载、部署解决方案",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "系统管理",
+      "item": [
+        {
+          "name": "健康检查",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            },
+            "description": "检查服务健康状态"
+          }
+        },
+        {
+          "name": "API健康检查",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "health"]
+            },
+            "description": "检查API健康状态"
+          }
+        },
+        {
+          "name": "获取所有端点",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": ["{{baseUrl}}"],
+              "path": [""]
+            },
+            "description": "获取所有可用的API端点列表"
+          }
+        }
+      ]
+    },
+    {
+      "name": "模型管理",
+      "item": [
+        {
+          "name": "搜索模型",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/models/search?query=bert&source=huggingface&page=1&page_size=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "models", "search"],
+              "query": [
+                {
+                  "key": "query",
+                  "value": "bert",
+                  "description": "搜索关键词"
+                },
+                {
+                  "key": "source",
+                  "value": "huggingface",
+                  "description": "模型源 (huggingface/ollama)"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "页码"
+                },
+                {
+                  "key": "page_size",
+                  "value": "20",
+                  "description": "每页数量"
+                }
+              ]
+            },
+            "description": "搜索模型"
+          }
+        },
+        {
+          "name": "获取模型信息",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/models/bert-base-uncased/info?source=huggingface",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "models", "bert-base-uncased", "info"],
+              "query": [
+                {
+                  "key": "source",
+                  "value": "huggingface",
+                  "description": "模型源"
+                }
+              ]
+            },
+            "description": "获取指定模型的详细信息"
+          }
+        },
+        {
+          "name": "获取模型分类",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/models/categories?source=huggingface",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "models", "categories"],
+              "query": [
+                {
+                  "key": "source",
+                  "value": "huggingface",
+                  "description": "模型源"
+                }
+              ]
+            },
+            "description": "获取模型分类列表"
+          }
+        },
+        {
+          "name": "获取热门模型",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/models/trending?source=huggingface&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "models", "trending"],
+              "query": [
+                {
+                  "key": "source",
+                  "value": "huggingface",
+                  "description": "模型源"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "返回数量"
+                }
+              ]
+            },
+            "description": "获取热门模型列表"
+          }
+        },
+        {
+          "name": "获取模型统计",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/models/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "models", "stats"]
+            },
+            "description": "获取模型统计信息"
+          }
+        },
+        {
+          "name": "收藏模型",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source\": \"huggingface\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/models/bert-base-uncased/favorite",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "models", "bert-base-uncased", "favorite"]
+            },
+            "description": "收藏指定模型"
+          }
+        },
+        {
+          "name": "取消收藏模型",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/models/bert-base-uncased/favorite?source=huggingface",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "models", "bert-base-uncased", "favorite"],
+              "query": [
+                {
+                  "key": "source",
+                  "value": "huggingface",
+                  "description": "模型源"
+                }
+              ]
+            },
+            "description": "取消收藏指定模型"
+          }
+        },
+        {
+          "name": "同步模型",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source\": \"huggingface\",\n  \"force\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/models/sync",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "models", "sync"]
+            },
+            "description": "同步模型数据"
+          }
+        }
+      ]
+    },
+    {
+      "name": "下载管理",
+      "item": [
+        {
+          "name": "开始下载",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model_id\": \"bert-base-uncased\",\n  \"source\": \"huggingface\",\n  \"download_path\": \"/custom/path\",\n  \"priority\": \"high\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/downloads/start",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "downloads", "start"]
+            },
+            "description": "开始下载模型"
+          }
+        },
+        {
+          "name": "暂停下载",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/downloads/{{task_id}}/pause",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "downloads", "{{task_id}}", "pause"]
+            },
+            "description": "暂停指定的下载任务"
+          }
+        },
+        {
+          "name": "继续下载",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/downloads/{{task_id}}/resume",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "downloads", "{{task_id}}", "resume"]
+            },
+            "description": "继续指定的下载任务"
+          }
+        },
+        {
+          "name": "取消下载",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/downloads/{{task_id}}/cancel",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "downloads", "{{task_id}}", "cancel"]
+            },
+            "description": "取消指定的下载任务"
+          }
+        },
+        {
+          "name": "删除下载任务",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/downloads/{{task_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "downloads", "{{task_id}}"]
+            },
+            "description": "删除指定的下载任务"
+          }
+        },
+        {
+          "name": "获取下载任务状态",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/downloads/{{task_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "downloads", "{{task_id}}"]
+            },
+            "description": "获取指定下载任务的状态"
+          }
+        },
+        {
+          "name": "获取下载任务列表",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/downloads/list?status=downloading&page=1&page_size=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "downloads", "list"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "downloading",
+                  "description": "任务状态过滤"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "页码"
+                },
+                {
+                  "key": "page_size",
+                  "value": "20",
+                  "description": "每页数量"
+                }
+              ]
+            },
+            "description": "获取下载任务列表"
+          }
+        },
+        {
+          "name": "获取下载队列状态",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/downloads/queue",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "downloads", "queue"]
+            },
+            "description": "获取下载队列状态"
+          }
+        },
+        {
+          "name": "获取存储空间信息",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/downloads/storage",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "downloads", "storage"]
+            },
+            "description": "获取存储空间使用情况"
+          }
+        }
+      ]
+    },
+    {
+      "name": "部署管理",
+      "item": [
+        {
+          "name": "启动部署",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model_id\": \"bert-base-uncased\",\n  \"source\": \"huggingface\",\n  \"name\": \"bert-deployment\",\n  \"config\": {\n    \"port\": 8080,\n    \"host\": \"0.0.0.0\",\n    \"gpu_device\": \"0\",\n    \"cpu_cores\": 4,\n    \"memory_limit\": 4096\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/deployments/start",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "deployments", "start"]
+            },
+            "description": "启动模型部署"
+          }
+        },
+        {
+          "name": "停止部署",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deployments/{{deployment_id}}/stop",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "deployments", "{{deployment_id}}", "stop"]
+            },
+            "description": "停止指定的部署"
+          }
+        },
+        {
+          "name": "重启部署",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deployments/{{deployment_id}}/restart",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "deployments", "{{deployment_id}}", "restart"]
+            },
+            "description": "重启指定的部署"
+          }
+        },
+        {
+          "name": "获取部署状态",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deployments/{{deployment_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "deployments", "{{deployment_id}}"]
+            },
+            "description": "获取指定部署的状态信息"
+          }
+        },
+        {
+          "name": "删除部署",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deployments/{{deployment_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "deployments", "{{deployment_id}}"]
+            },
+            "description": "删除指定的部署"
+          }
+        },
+        {
+          "name": "获取部署列表",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deployments/list?status=running&page=1&page_size=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "deployments", "list"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "running",
+                  "description": "部署状态过滤"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "页码"
+                },
+                {
+                  "key": "page_size",
+                  "value": "20",
+                  "description": "每页数量"
+                }
+              ]
+            },
+            "description": "获取部署列表"
+          }
+        },
+        {
+          "name": "获取部署日志",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deployments/{{deployment_id}}/logs?lines=100",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "deployments", "{{deployment_id}}", "logs"],
+              "query": [
+                {
+                  "key": "lines",
+                  "value": "100",
+                  "description": "日志行数"
+                }
+              ]
+            },
+            "description": "获取指定部署的日志"
+          }
+        },
+        {
+          "name": "部署健康检查",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deployments/{{deployment_id}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "deployments", "{{deployment_id}}", "health"]
+            },
+            "description": "检查指定部署的健康状态"
+          }
+        }
+      ]
+    },
+    {
+      "name": "系统监控",
+      "item": [
+        {
+          "name": "获取系统资源",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/system/resources",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "system", "resources"]
+            },
+            "description": "获取系统资源使用情况（CPU、内存、磁盘、GPU等）"
+          }
+        },
+        {
+          "name": "获取系统负载",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/system/load",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "system", "load"]
+            },
+            "description": "获取系统负载信息"
+          }
+        },
+        {
+          "name": "系统健康检查",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/system/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "system", "health"]
+            },
+            "description": "检查系统整体健康状况"
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// 设置全局变量",
+          "if (!pm.globals.get('task_id')) {",
+          "    pm.globals.set('task_id', 'sample-task-id');",
+          "}",
+          "if (!pm.globals.get('deployment_id')) {",
+          "    pm.globals.set('deployment_id', 'sample-deployment-id');",
+          "}"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// 通用测试脚本",
+          "pm.test('Status code is 200', function () {",
+          "    pm.response.to.have.status(200);",
+          "});",
+          "",
+          "pm.test('Response has success field', function () {",
+          "    const responseJson = pm.response.json();",
+          "    pm.expect(responseJson).to.have.property('success');",
+          "});",
+          "",
+          "// 自动提取ID用于后续请求",
+          "if (pm.response.json().data && pm.response.json().data.task_id) {",
+          "    pm.globals.set('task_id', pm.response.json().data.task_id);",
+          "}",
+          "if (pm.response.json().data && pm.response.json().data.deployment_id) {",
+          "    pm.globals.set('deployment_id', pm.response.json().data.deployment_id);",
+          "}"
+        ]
+      }
+    }
+  ]
+} 

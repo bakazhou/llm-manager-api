@@ -1,0 +1,78 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+# Flask核心框架
+Flask = "==2.3.3"
+Flask-RESTful = "==0.3.10"
+Flask-CORS = "==4.0.0"
+Flask-SQLAlchemy = "==3.0.5"
+# 数据库和缓存
+SQLAlchemy = "==2.0.23"
+redis = "*"
+psycopg2-binary = "==2.9.9"
+# HTTP客户端和API集成
+requests = "==2.31.0"
+httpx = "==0.25.2"
+# HuggingFace集成
+huggingface-hub = "==0.33.1"
+transformers = "==4.52.4"
+torch = "==2.7.0"
+# vLLM推理引擎
+vllm = "==0.9.1"
+# Ollama集成
+ollama = "==0.1.7"
+# 系统监控和容器管理
+psutil = "==5.9.6"
+docker = "==6.1.3"
+# 数据验证和序列化
+pydantic = "==2.11.7"
+marshmallow = "==3.20.1"
+# 环境变量管理
+python-dotenv = "==1.0.0"
+# 日期时间处理
+python-dateutil = "==2.8.2"
+# 工具库
+click = "==8.1.7"
+# 异步任务处理
+celery = "*"
+# WebSocket支持
+flask-socketio = "*"
+# 文件处理
+aiofiles = "*"
+tqdm = "*"
+# GPU监控（可选）
+gputil = "*"
+
+[dev-packages]
+# 测试框架
+pytest = "==7.4.3"
+pytest-flask = "==1.3.0"
+pytest-cov = "==4.1.0"
+# 代码格式化和检查
+black = "*"
+flake8 = "*"
+isort = "*"
+# 开发工具
+ipython = "*"
+jupyter = "*"
+
+[requires]
+python_version = "3.9"
+
+[scripts]
+# 启动脚本
+start = "python run.py"
+dev = "python run.py development"
+prod = "python run.py production"
+# Celery相关脚本
+worker = "celery -A tasks worker --loglevel=info"
+worker-dev = "celery -A tasks worker --loglevel=debug --reload"
+worker-down = "pkill -f celery"
+# 测试脚本
+pytest = "pytest"
+# 代码格式化
+format = "black api/ && isort api/"
+lint = "flake8 api/ && black --check api/ && isort --check-only api/"
